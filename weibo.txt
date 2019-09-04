@@ -1,0 +1,20 @@
+2019-08-30
+昨天捣鼓了一个晚上，还是搞不定香蕉派bpi-m2z这个板，被buildroot劝退了。
+我怀疑linux内核被卡住的原因可能跟uboot差不多，也是因为mmc_cd的针脚状态问题，不过我不会改Linux内核，我也找不到相关的补丁。
+bpi-m2z这个板只能等我把官方的bsp搞定，不过能不能把bsp搞定也是个问题，可能也会遇到类似的状况。
+目前我可以buildroot玩的有树莓派zero、NanoPi Duo2和香橙派zero（非LTS版），可以用openwrt玩的有linkit7688和omega2p，
+除了这5个板以外我想有更大的拓展
+
+2019-09-05
+经过九九八十一难，终于把buildroot在香蕉派BPI-M2Z上跑通了，可喜可贺[泪]，为了跑通它，我把一个BPI-M2Z的串口给弄坏了，
+为此我还另外掏钱买了一个新的[允悲]，其实之前失败的关键是这一句内核日志：sunxi-mmc 1c0f000.mmc: Got CD GPIO。
+以及最后卡住的那一句日志：Waiting for root device /dev/mmcblk0p2。最后卡住的日志在bing上找不到原因，不过在百度上可以查到是因为cd脚的问题，
+其实跟uboot卡住的原因是很类似的：
+https://www.cnblogs.com/dakewei/p/9908485.html
+如果熟悉Linux 4的源代码，可以找到cd脚的踪迹，不过可能需要一些运气才能看得到：
+ret = mmc_gpiod_request_cd(host, "cd", 0, true, 
+这句话正好在Got CD GPIO这句话的附近，然后再往上看可以看到“broken-cd”这个字眼，这个字眼就是破案的关键，因为我刚好在一个补丁中看到过这个单词：
+https://github.com/BPI-SINOVOIP/BPI-files/blob/master/others/armbian/build/patch/kernel/sunxi-next/add-bananapi-m2-zero.patch
+所以最后的解决方案出来了，只要把buildroot的Linux源代码里面，设备树dts文件（我的理解就是改变内核代码中broken-cd的配置项）应用这个补丁
+（这里我偷懒，直接修改m2 plus的dts，因为我是直接用m2 plus的内核默认配置去编译），编译出img系统镜像，然后烧录到tf卡插在bpi-m2z上运行，
+即可成功运行。最终的补丁之后我会整理好发到github上
