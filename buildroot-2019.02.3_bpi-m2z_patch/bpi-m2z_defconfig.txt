@@ -1,0 +1,10 @@
+uboot-2017.07
+linux-4.13.3
+busybox-1.29.3
+
+
+rm -rf output
+make clean
+make bananapi_m2_plus_defconfig
+make
+

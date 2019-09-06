@@ -1,0 +1,17 @@
+--- a/drivers/mmc/sunxi_mmc.c	2017-07-11 01:07:38.000000000 +0800
++++ b/drivers/mmc/sunxi_mmc.c	2019-08-29 19:40:08.880112116 +0800
+@@ -444,7 +444,13 @@
+ 	if (cd_pin < 0)
+ 		return 1;
+ 
+-	return !gpio_get_value(cd_pin);
++#if 0
++ 	return !gpio_get_value(cd_pin);
++#else
++	printf("BPI: skip sunxi_mmc_getcd pin %d(%d)\n",cd_pin, gpio_get_value(cd_pin));
++	return 1;
++
++#endif
+ }
+ 
+ static const struct mmc_ops sunxi_mmc_ops = {
