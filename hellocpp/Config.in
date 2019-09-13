@@ -1,0 +1,5 @@
+config BR2_PACKAGE_HELLOCPP
+	bool "hellocpp"
+	help
+	  Copy from c-periphery.
+
