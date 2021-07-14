@@ -65,3 +65,9 @@ $ make hellocpp-dirclean && make
  | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |
  +-----+-----+---------+------+---+---Pi ?---+---+------+---------+-----+-----+
 ```  
+
+## BPI-M2 Zero Pin define  
+Banana Pi BPI-M2 Zero 40-pin GPIO define is same as BPI-M2+  
+https://bananapi.gitbook.io/bpi-m2-/en/bpi-m2-zero-hardware/bpi-m2-zero-pin-define  
+https://bananapi.gitbook.io/bpi-m2-/en/bpi-m2-zero-hardware-1  
+
