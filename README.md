@@ -98,3 +98,8 @@ CON3-P03, UART0-TXD, PA4
 CON3-P02, UART0-RXD, PA5  
 CON3-P01, GND  
 ```  
+
+## bpi fel  
+search baidupan, bpi-fel-mass-storage-gui4win-v1.002.zip  
+https://github.com/OtakuNekoP/bpi-fel-mass-storage-gui4win/releases  
+https://linux-sunxi.org/FEL  
